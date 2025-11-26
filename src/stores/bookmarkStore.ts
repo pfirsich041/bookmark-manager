@@ -1,16 +1,20 @@
-import type { Bookmark } from '@/types/bookmark';
+import type { Bookmark } from '../types/bookmark.ts';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { textSpanContainsTextSpan } from 'typescript';
 
+interface BookmarkState {
+  bookmarks: Bookmark[];
+  searchQuery: string; // ✨ 新しく追加
+}
+
 export const useBookmarkStore = defineStore('bookmark', {
-  state: () => ({
-    bookmarks: JSON.parse(
-      localStorage.getItem('bookmarks') || '[]',
-    ) as Bookmark[],
+  state: (): BookmarkState => ({
+    bookmarks: JSON.parse(localStorage.getItem('bookmarks') || '[]'),
+    searchQuery: '',
   }),
   getters: {
     getBookmarkById: (state) => (id: number) => {
-      state.bookmarks.find((bookmark) => bookmark.id === id);
+      return state.bookmarks.find((bookmark) => bookmark.id === id);
     },
     filteredBookmarks: (state) => {
       if (!state.searchQuery) {

@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <v-card
-      v-for="bookmark in bookmarkStore.bookmarks"
+      v-if="bookmarkStore.filteredBookmarks.length != 0"
+      v-for="bookmark in bookmarkStore.filteredBookmarks"
       :key="bookmark.id"
       class="mb-4"
     >
@@ -32,6 +33,9 @@
           ></v-btn>
         </div>
       </div>
+    </v-card>
+    <v-card v-else>
+      <v-card-text>ブックマークがありません</v-card-text>
     </v-card>
   </v-container>
 </template>
