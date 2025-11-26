@@ -18,7 +18,9 @@ declare module 'vue' {
     BookmarkListItem: typeof import('./components/bookmarks/BookmarkListItem.vue')['default']
     EditBookmark: typeof import('./components/bookmarks/EditBookmark.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    Loading: typeof import('./components/Loading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchBar: typeof import('./components/bookmarks/SearchBar.vue')['default']
   }
 }

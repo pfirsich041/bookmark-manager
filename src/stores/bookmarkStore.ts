@@ -1,5 +1,6 @@
 import type { Bookmark } from '@/types/bookmark';
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import { textSpanContainsTextSpan } from 'typescript';
 
 export const useBookmarkStore = defineStore('bookmark', {
   state: () => ({
@@ -8,8 +9,19 @@ export const useBookmarkStore = defineStore('bookmark', {
     ) as Bookmark[],
   }),
   getters: {
-    getBookmarkById: (state) => (id: number) =>
-      state.bookmarks.find((bookmark) => bookmark.id === id),
+    getBookmarkById: (state) => (id: number) => {
+      state.bookmarks.find((bookmark) => bookmark.id === id);
+    },
+    filteredBookmarks: (state) => {
+      if (!state.searchQuery) {
+        return state.bookmarks;
+      }
+
+      const lowerCaseQuery = state.searchQuery.toLowerCase();
+      return state.bookmarks.filter((bookmark) =>
+        bookmark.title.toLowerCase().includes(lowerCaseQuery),
+      );
+    },
   },
   actions: {
     addBookmark(bookmark: Bookmark) {
@@ -29,6 +41,9 @@ export const useBookmarkStore = defineStore('bookmark', {
     // setBookmarks(bookmarks: Bookmark[]) {
     //   this.bookmarks = bookmarks;
     // }
+    setSearchQuery(query: string) {
+      this.searchQuery = query;
+    },
   },
 });
 

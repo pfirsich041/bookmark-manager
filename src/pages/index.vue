@@ -1,5 +1,10 @@
 <template>
-  <v-container style="position: relative; height: calc(100vh - 64px);">
+  <Loading v-if="loading" />
+  <v-container
+    v-show="!loading"
+    style="position: relative; height: calc(100vh - 64px)"
+  >
+    <SearchBar></SearchBar>
     <v-container style="overflow-y: auto; height: 100%; padding-bottom: 80px">
       <BookmarkList />
     </v-container>
@@ -15,5 +20,11 @@
 </template>
 
 <script lang="ts" setup>
-//
+import { onMounted, ref } from 'vue';
+const loading = ref(true);
+onMounted(() => {
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+});
 </script>
