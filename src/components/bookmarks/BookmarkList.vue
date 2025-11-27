@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBookmarkStore } from '@/stores/bookmarkStore';
+import { useBookmarkStore } from '../../stores/bookmarkStore';
 
 const bookmarkStore = useBookmarkStore();
 </script>

@@ -1,6 +1,6 @@
 import type { Bookmark } from '../types/bookmark.ts';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { textSpanContainsTextSpan } from 'typescript';
+import { debounce } from 'lodash-es';
 
 interface BookmarkState {
   bookmarks: Bookmark[];
@@ -45,9 +45,9 @@ export const useBookmarkStore = defineStore('bookmark', {
     // setBookmarks(bookmarks: Bookmark[]) {
     //   this.bookmarks = bookmarks;
     // }
-    setSearchQuery(query: string) {
-      this.searchQuery = query;
-    },
+    setSearchQuery: debounce(function (this: any, text: string) {
+      this.searchQuery = text;
+    }, 300),
   },
 });
 
